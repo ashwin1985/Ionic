@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar hideBackButton="true">
+    <ion-title>
+      Circles - Login
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="login" padding>
+  <ion-list>
+    <ion-item>
+      <ion-input placeholder="PhoneNumber" clearInput [(ngModel)]=username></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type=password placeholder="Password" clearInput [(ngModel)]=password></ion-input>
+    </ion-item>
+    <button block primary (click)=login()>Login</button>
+  </ion-list>
+  <button clear>Forgot Password</button>
+  <button clear (click)=signup()>Sign Up</button>
+</ion-content>

@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar hideBackButton="true">
+    <ion-title>
+      Circles - SignOn
+    </ion-title>
+    <ion-buttons end>
+      <button outline primary (click)=skip()>Skip</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="fundinginfo" padding>
+  <ion-list>
+    <ion-item>
+      <ion-input placeholder="Bank Name" clearInput></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input placeholder="Type" clearInput></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input placeholder="Routing Number" clearInput></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input placeholder="Account Number" clearInput></ion-input>
+    </ion-item>
+    <button block primary (click)=addFundingSources()>Add Funding Source</button>
+  </ion-list>
+</ion-content>
