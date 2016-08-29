@@ -9,7 +9,7 @@ import {FundingInfoPage} from './pages/fundinginfo/fundinginfo';
   template: '<ion-nav [root]="rootPage"></ion-nav>'
 })
 
-export class MyApp {
+export class Vendi {
   rootPage: any = LoginPage;
 
   constructor(platform: Platform) {
@@ -21,4 +21,4 @@ export class MyApp {
   }
 }
 
-ionicBootstrap(MyApp);
+ionicBootstrap(Vendi);

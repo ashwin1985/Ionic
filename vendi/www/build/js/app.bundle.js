@@ -13,8 +13,8 @@ var core_1 = require('@angular/core');
 var ionic_angular_1 = require('ionic-angular');
 var ionic_native_1 = require('ionic-native');
 var login_1 = require('./pages/login/login');
-var MyApp = (function () {
-    function MyApp(platform) {
+var Vendi = (function () {
+    function Vendi(platform) {
         this.rootPage = login_1.LoginPage;
         platform.ready().then(function () {
             // Okay, so the platform is ready and our plugins are available.
@@ -22,16 +22,16 @@ var MyApp = (function () {
             ionic_native_1.StatusBar.styleDefault();
         });
     }
-    MyApp = __decorate([
+    Vendi = __decorate([
         core_1.Component({
             template: '<ion-nav [root]="rootPage"></ion-nav>'
         }), 
         __metadata('design:paramtypes', [ionic_angular_1.Platform])
-    ], MyApp);
-    return MyApp;
+    ], Vendi);
+    return Vendi;
 }());
-exports.MyApp = MyApp;
-ionic_angular_1.ionicBootstrap(MyApp);
+exports.Vendi = Vendi;
+ionic_angular_1.ionicBootstrap(Vendi);
 
 },{"./pages/login/login":5,"@angular/core":154,"ionic-angular":418,"ionic-native":445}],2:[function(require,module,exports){
 "use strict";
