@@ -8,13 +8,17 @@
 
 <ion-content class="login" padding>
   <ion-list>
-    <ion-item>
-      <ion-input placeholder="PhoneNumber" clearInput [(ngModel)]=username></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input type=password placeholder="Password" clearInput [(ngModel)]=password></ion-input>
-    </ion-item>
-    <button block primary (click)=login()>Login</button>
+    <form [ngFormModel]="loginFormCtrl" (ngSubmit)="login()">
+      <ion-item [class.error]="!userNameCtrl.valid && userNameCtrl.touched">
+        <ion-input [ngFormControl]="userNameCtrl" placeholder="PhoneNumber" clearInput [(ngModel)]=username></ion-input>
+        <ion-label *ngIf="!userNameCtrl.valid && userNameCtrl.touched" danger>User name required</ion-label>
+      </ion-item>
+      <ion-item [class.error]="!passwordCtrl.valid && passwordCtrl.touched">
+        <ion-input type=password [ngFormControl]="passwordCtrl" placeholder="Password" clearInput [(ngModel)]=password></ion-input>
+        <ion-label *ngIf="!passwordCtrl.valid && passwordCtrl.touched" danger>Password required</ion-label>
+      </ion-item>
+      <button type="submit" block primary [disabled]="!loginFormCtrl.valid">Login</button>
+    </form>
   </ion-list>
   <button clear>Forgot Password</button>
   <button clear (click)=signup()>Sign Up</button>

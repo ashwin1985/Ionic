@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Vendi - Sign Up
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="signup" padding>
+  <ion-list>
+    <form [ngFormModel]="signupFormCtrl" (ngSubmit)="signup()">
+      <ion-item [class.error]="!firstNameCtrl.valid && firstNameCtrl.touched">
+        <ion-input [ngFormControl]="firstNameCtrl" placeholder="First Name" clearInput [(ngModel)]=user.firstName></ion-input>
+        <ion-label *ngIf="!firstNameCtrl.valid && firstNameCtrl.touched" danger>First name required</ion-label>
+      </ion-item>
+      <ion-item [class.error]="!lastNameCtrl.valid && lastNameCtrl.touched">
+        <ion-input [ngFormControl]="lastNameCtrl" placeholder="Last Name" clearInput [(ngModel)]=user.lastName></ion-input>
+        <ion-label *ngIf="!lastNameCtrl.valid && lastNameCtrl.touched" danger>Last name required</ion-label>
+      </ion-item>
+      <ion-item [class.error]="!phoneCtrl.valid && phoneCtrl.touched">
+        <ion-input [ngFormControl]="phoneCtrl" placeholder="Phone" clearInput [(ngModel)]=user.phone></ion-input>
+        <ion-label *ngIf="!phoneCtrl.valid && phoneCtrl.touched" danger>Phone required</ion-label>
+      </ion-item>
+      <ion-item [class.error]="!emailCtrl.valid && emailCtrl.touched">
+        <ion-input [ngFormControl]="emailCtrl" placeholder="Email" clearInput [(ngModel)]=user.email></ion-input>
+        <ion-label *ngIf="!emailCtrl.valid && emailCtrl.touched" danger>Email required</ion-label>
+      </ion-item>
+      <ion-item [class.error]="!passwordCtrl.valid && passwordCtrl.touched">
+        <ion-input type=password [ngFormControl]="passwordCtrl" placeholder="Password" clearInput [(ngModel)]=user.password></ion-input>
+        <ion-label *ngIf="!passwordCtrl.valid && passwordCtrl.touched" danger>Password required and must be atleast 12 characters</ion-label>
+      </ion-item>
+      <ion-item [class.error]="!confirmPasswordCtrl.valid && confirmPasswordCtrl.touched">
+        <ion-input type=password [ngFormControl]="confirmPasswordCtrl" placeholder="Confirm Password" clearInput></ion-input>
+        <ion-label *ngIf="!confirmPasswordCtrl.valid && confirmPasswordCtrl.touched" danger>Password did not match</ion-label>
+      </ion-item>
+      <button type="submit" block primary [disabled]="!signupFormCtrl.valid">Sign Up</button>
+    </form>
+  </ion-list>
+</ion-content>

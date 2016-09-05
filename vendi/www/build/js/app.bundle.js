@@ -141,19 +141,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var common_1 = require('@angular/common');
 var ionic_angular_1 = require('ionic-angular');
 var http_1 = require('@angular/http');
 var circles_1 = require('../circles/circles');
-var signon_1 = require('../signon/signon');
 var authservice_1 = require('../../services/authservice');
+var signup_1 = require('../signup/signup');
 var LoginPage = (function () {
-    function LoginPage(navController, http, view) {
+    function LoginPage(navController, http, view, formBuilder) {
         this.navController = navController;
         this.http = http;
         this.view = view;
-        this.username = "";
-        this.password = "";
+        this.formBuilder = formBuilder;
         this.authService = new authservice_1.AuthService(http);
+        this.loginFormCtrl = formBuilder.group({
+            userName: ['', common_1.Validators.compose([common_1.Validators.required, common_1.Validators.pattern('^[0-9]{10}$')])],
+            password: ['', common_1.Validators.required]
+        });
+        this.userNameCtrl = this.loginFormCtrl.controls['userName'];
+        this.passwordCtrl = this.loginFormCtrl.controls['password'];
     }
     LoginPage.prototype.login = function () {
         var _this = this;
@@ -170,19 +176,19 @@ var LoginPage = (function () {
         });
     };
     LoginPage.prototype.signup = function () {
-        this.navController.push(signon_1.SignOnPage);
+        this.navController.push(signup_1.SignupPage);
     };
     LoginPage = __decorate([
         core_1.Component({
             templateUrl: 'build/pages/login/login.html'
         }), 
-        __metadata('design:paramtypes', [ionic_angular_1.NavController, http_1.Http, ionic_angular_1.ViewController])
+        __metadata('design:paramtypes', [ionic_angular_1.NavController, http_1.Http, ionic_angular_1.ViewController, common_1.FormBuilder])
     ], LoginPage);
     return LoginPage;
 }());
 exports.LoginPage = LoginPage;
 
-},{"../../services/authservice":7,"../circles/circles":3,"../signon/signon":6,"@angular/core":154,"@angular/http":242,"ionic-angular":418}],6:[function(require,module,exports){
+},{"../../services/authservice":7,"../circles/circles":3,"../signup/signup":6,"@angular/common":8,"@angular/core":154,"@angular/http":242,"ionic-angular":418}],6:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -194,41 +200,64 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var common_1 = require('@angular/common');
 var ionic_angular_1 = require('ionic-angular');
 var http_1 = require('@angular/http');
 var fundinginfo_1 = require('../fundinginfo/fundinginfo');
 var user_1 = require('../../models/user');
 var authservice_1 = require('../../services/authservice');
-var SignOnPage = (function () {
-    function SignOnPage(navController, view, http) {
+var SignupPage = (function () {
+    function SignupPage(navController, view, http, formBuilder) {
         this.navController = navController;
         this.view = view;
         this.http = http;
+        this.formBuilder = formBuilder;
         this.user = new user_1.User();
         this.authService = new authservice_1.AuthService(http);
+        this.signupFormCtrl = formBuilder.group({
+            firstName: ['', common_1.Validators.required],
+            lastName: ['', common_1.Validators.required],
+            phone: ['', common_1.Validators.compose([common_1.Validators.required, common_1.Validators.pattern('^[0-9]{10}$')])],
+            email: ['', common_1.Validators.required],
+            password: ['', common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(12)])],
+            confirmPassword: ['', common_1.Validators.required]
+        }, { validator: this.matchingPasswords('password', 'confirmPassword') });
+        this.firstNameCtrl = this.signupFormCtrl.controls['firstName'];
+        this.lastNameCtrl = this.signupFormCtrl.controls['lastName'];
+        this.phoneCtrl = this.signupFormCtrl.controls['phone'];
+        this.emailCtrl = this.signupFormCtrl.controls['email'];
+        this.passwordCtrl = this.signupFormCtrl.controls['password'];
+        this.confirmPasswordCtrl = this.signupFormCtrl.controls['confirmPassword'];
     }
-    SignOnPage.prototype.signOn = function () {
+    SignupPage.prototype.signup = function () {
         var _this = this;
         this.authService.signup(this.user).subscribe(function (data) {
             if (data) {
                 _this.navController.push(fundinginfo_1.FundingInfoPage);
             }
-            else {
-                alert('failure');
-            }
         }, function (err) { return console.error(err); });
     };
-    SignOnPage = __decorate([
+    SignupPage.prototype.matchingPasswords = function (passwordKey, confirmPasswordKey) {
+        return function (group) {
+            var password = group.controls[passwordKey];
+            var confirmPassword = group.controls[confirmPasswordKey];
+            if (password.value !== confirmPassword.value) {
+                confirmPassword.setErrors({ "passwordMismatch": true });
+                return { "passwordMismatch": true };
+            }
+        };
+    };
+    SignupPage = __decorate([
         core_1.Component({
-            templateUrl: 'build/pages/signon/signon.html'
+            templateUrl: 'build/pages/signup/signup.html'
         }), 
-        __metadata('design:paramtypes', [ionic_angular_1.NavController, ionic_angular_1.ViewController, http_1.Http])
-    ], SignOnPage);
-    return SignOnPage;
+        __metadata('design:paramtypes', [ionic_angular_1.NavController, ionic_angular_1.ViewController, http_1.Http, common_1.FormBuilder])
+    ], SignupPage);
+    return SignupPage;
 }());
-exports.SignOnPage = SignOnPage;
+exports.SignupPage = SignupPage;
 
-},{"../../models/user":2,"../../services/authservice":7,"../fundinginfo/fundinginfo":4,"@angular/core":154,"@angular/http":242,"ionic-angular":418}],7:[function(require,module,exports){
+},{"../../models/user":2,"../../services/authservice":7,"../fundinginfo/fundinginfo":4,"@angular/common":8,"@angular/core":154,"@angular/http":242,"ionic-angular":418}],7:[function(require,module,exports){
 "use strict";
 var http_1 = require('@angular/http');
 require('rxjs/add/operator/map');

@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {Platform, ionicBootstrap} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {LoginPage} from './pages/login/login';
-import {SignOnPage} from './pages/signon/signon';
 import {FundingInfoPage} from './pages/fundinginfo/fundinginfo';
 
 @Component({
